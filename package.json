@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src",
+    "start": "nodemon src/index.ts",
     "test": "hello world"
   },
   "type": "module",
