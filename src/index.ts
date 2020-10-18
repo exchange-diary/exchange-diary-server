@@ -1,7 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import './db';
+import { User } from './db';
+import * as apiController from "./controllers/api.controller";
 
+export const router = express.Router();
 const app = express()
 const port = 4000
 
@@ -12,12 +16,12 @@ const port = 4000
  */
 app
     .use(bodyParser.urlencoded({extended: true})) 
+    .use(bodyParser.json()) // json을 parse하도록 함
     .use(cors())
-    .get('/', (req, res) => res.json({ message: 'hello world' }))
-    .get('/hello/:skip/:limit', (req, res) => {
-        console.log(req.params)
-        res.json(req.params)
-    })
-
+    .get('/', (req, res) => res.json({ data: 'hello world' }))
+    .get('/user', apiController.controllers.find_user)
+    .post('/login', apiController.controllers.login)
+    .post('/sign_up', apiController.controllers.sign_up)
+    
     .listen(port, ()=> console.log(`http://localhost:${port} started ... `))
     
